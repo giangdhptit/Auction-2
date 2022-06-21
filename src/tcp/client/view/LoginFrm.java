@@ -104,10 +104,10 @@ public class LoginFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            User player = new User();
-            player.setUsername(jTextField1.getText());
-            player.setPassword(jPasswordField1.getText());
-            mySocket.sendData(new ObjectWrapper(ObjectWrapper.LOGIN_USER, player));
+            User user = new User();
+            user.setUsername(jTextField1.getText());
+            user.setPassword(jPasswordField1.getText());
+            mySocket.sendData(new ObjectWrapper(ObjectWrapper.LOGIN_USER, user));
             
             
     }//GEN-LAST:event_jButton1ActionPerformed

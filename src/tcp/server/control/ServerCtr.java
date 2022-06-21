@@ -156,7 +156,7 @@ public class ServerCtr {
                                 User user = (User) data.getData();
                                 AuctionDAO aDao = new AuctionDAO();
                                 boolean checklogin = aDao.checkLogin(user);
-                                if (checklogin) {
+                                if (!checklogin) {
                                         oos.writeObject(new ObjectWrapper(ObjectWrapper.REPLY_LOGIN_USER, "false"));
                                     } else {              
                                         oos.writeObject(new ObjectWrapper(ObjectWrapper.REPLY_LOGIN_USER, user));
