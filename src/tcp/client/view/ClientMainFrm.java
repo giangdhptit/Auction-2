@@ -40,12 +40,13 @@ public class ClientMainFrm extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        DisconnectBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        LoginMenu = new javax.swing.JMenuItem();
+        registerMenu = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,10 +63,10 @@ public class ClientMainFrm extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Disconnect");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        DisconnectBtn.setText("Disconnect");
+        DisconnectBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                DisconnectBtnActionPerformed(evt);
             }
         });
 
@@ -75,13 +76,21 @@ public class ClientMainFrm extends javax.swing.JFrame {
 
         jMenu1.setText("User");
 
-        jMenuItem1.setText("Login");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        LoginMenu.setText("Login");
+        LoginMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                LoginMenuActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(LoginMenu);
+
+        registerMenu.setText("Register");
+        registerMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerMenuActionPerformed(evt);
+            }
+        });
+        jMenu1.add(registerMenu);
 
         jMenuBar1.add(jMenu1);
 
@@ -112,7 +121,7 @@ public class ClientMainFrm extends javax.swing.JFrame {
                         .addGap(93, 93, 93)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
-                        .addComponent(jButton2)))
+                        .addComponent(DisconnectBtn)))
                 .addGap(97, 97, 97))
         );
         layout.setVerticalGroup(
@@ -131,7 +140,7 @@ public class ClientMainFrm extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(DisconnectBtn))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -150,25 +159,29 @@ public class ClientMainFrm extends javax.swing.JFrame {
                     myControl = new ClientCtr(this);
                 }
                 if(myControl.openConnection()) {
-                    jButton2.setEnabled(true);
+                    DisconnectBtn.setEnabled(true);
                     jButton1.setEnabled(false);
-                    jMenuItem1.setEnabled(true);
+                    LoginMenu.setEnabled(true);
                 }else {
                     resetClient();
                 }
                 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void DisconnectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisconnectBtnActionPerformed
                 resetClient();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_DisconnectBtnActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void LoginMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginMenuActionPerformed
               
                 LoginFrm clv = new LoginFrm(myControl);
                 clv.setVisible(true);
 
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_LoginMenuActionPerformed
+
+    private void registerMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registerMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -217,24 +230,25 @@ public class ClientMainFrm extends javax.swing.JFrame {
             myControl.getActiveFunction().clear();
             myControl = null;
         }               
-        jButton2.setEnabled(false);
+        DisconnectBtn.setEnabled(false);
         jButton1.setEnabled(true);
-        jMenuItem1.setEnabled(false);
+        LoginMenu.setEnabled(false);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton DisconnectBtn;
+    private javax.swing.JMenuItem LoginMenu;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JMenuItem registerMenu;
     // End of variables declaration//GEN-END:variables
 
 }
