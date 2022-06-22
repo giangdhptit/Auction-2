@@ -17,6 +17,11 @@ public class ObjectWrapper implements Serializable {
     public static final int SERVER_INFORM_CLIENT_NUMBER = 1;
     public static final int LOGIN_USER = 2;
     public static final int REPLY_LOGIN_USER = 3;
+    public static final int GET_AUCTIONS = 4;
+    public static final int REPLY_GET_AUCTIONS = 5;
+    public static final int GET_MEMS = 6;
+    public static final int REPLY_GET_MEMS = 7;
+    
 
     private int performative;
     private Object data;

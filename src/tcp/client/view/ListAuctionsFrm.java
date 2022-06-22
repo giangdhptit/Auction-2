@@ -6,6 +6,7 @@
 package tcp.client.view;
 
 import DAO.AuctionDAO;
+import Model.Auction;
 import Model.ObjectWrapper;
 import Model.User;
 import java.util.ArrayList;
@@ -19,39 +20,41 @@ import tcp.client.control.ClientCtr;
  *
  * @author bakhoat
  */
-public class ListFriendsFrm extends javax.swing.JFrame {
+public class ListAuctionsFrm extends javax.swing.JFrame {
 
     DefaultTableModel tm;
-    private int idplayer;
+    private User user;
     private ClientCtr mySocket;
-    private ArrayList<User> list = new ArrayList<User>();
-    private Thread tr;
+    private ArrayList<Auction> list = new ArrayList<>();
+//    private Thread tr;
 
     /**
      * Creates new form ListFriends
      */
-    public ListFriendsFrm(int id, ClientCtr mysk) {
-//        mySocket = mysk;
-//        this.idplayer = id;
-//        initComponents();
-//        String cols[] = {
-//            "ID", "Name", "Status"
-//        };
-//        tm = new DefaultTableModel(cols, 0);
-//        tm.setRowCount(0);
-//        jTable1.setModel(tm);
-//        mySocket.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_GET_FRIENDS, this));
+    public ListAuctionsFrm(User user, ClientCtr mysk) {
+        mySocket = mysk;
+        this.user = user;
+        initComponents();
+        String cols[] = {
+            "ID", "ItemAution"
+        };
+        tm = new DefaultTableModel(cols, 0);
+        tm.setRowCount(0);
+        jTable1.setModel(tm);
+        mySocket.sendData(new ObjectWrapper(ObjectWrapper.GET_AUCTIONS, ""));
+        mySocket.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_GET_AUCTIONS, this));
+//        mySocket.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_GET_MEMS, this));
 //        tr = new Thread(new Runnable() {
 //            @Override
 //            public void run() {
 //                while (true) {
-//                    mySocket.sendData(new ObjectWrapper(ObjectWrapper.GET_FRIENDS, idplayer));
+//                    mySocket.sendData(new ObjectWrapper(ObjectWrapper.GET_MEMS, user));
 ////                    tm.setRowCount(0);
 ////                    jTable1.setModel(tm);
 //                    try {
 //                        Thread.sleep(2000);
 //                    } catch (InterruptedException ex) {
-//                        Logger.getLogger(ListFriendsFrm.class.getName()).log(Level.SEVERE, null, ex);
+//                        Logger.getLogger(ListAuctionsFrm.class.getName()).log(Level.SEVERE, null, ex);
 //                    }
 //                }
 //            }
@@ -70,14 +73,27 @@ public class ListFriendsFrm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFrame1 = new javax.swing.JFrame();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
+        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
+        jFrame1.getContentPane().setLayout(jFrame1Layout);
+        jFrame1Layout.setHorizontalGroup(
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jFrame1Layout.setVerticalGroup(
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("ListFriends");
+        jLabel1.setText("ListAuctions");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -103,26 +119,25 @@ public class ListFriendsFrm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(190, 190, 190))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(176, 176, 176)
-                        .addComponent(jButton1)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(175, 175, 175)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
@@ -133,7 +148,6 @@ public class ListFriendsFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        tr.stop();
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -174,22 +188,23 @@ public class ListFriendsFrm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
     public void receivedDataProcessing(ObjectWrapper data) {
-//        list.clear();
-//        
-//        for (Users player : (ArrayList<Users>) data.getData()) {
-//            list.add(player);
-//        }
-////        System.out.println(list.size());
-//        tm.setRowCount(0);
-//        for (Users player : list) {
-//            tm.addRow(player.toObject());
-//        }
+        list.clear();
+
+        for (Auction aution : (ArrayList<Auction>) data.getData()) {
+            list.add(aution);
+        }
+        tm.setRowCount(0);
+        for (Auction aution : list) {
+            tm.addRow(aution.toObject());
+        }
     }
 
 }

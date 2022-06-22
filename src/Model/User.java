@@ -56,7 +56,7 @@ public class User implements Serializable {
 //        };
 //    }
 
-    public User(int id, String username, String password, String address, String name, String email, int age, int money, List<Bids> listBidUser, List<UserInRoom> listUserInRoom, List<Auction> listAuctionCreated) {
+    public User(int id, String username, String password, String address, String name, String email, int age, String role, int money, List<Bids> listBidUser, List<UserInRoom> listUserInRoom, List<Auction> listAuctionCreated) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -64,6 +64,7 @@ public class User implements Serializable {
         this.name = name;
         this.email = email;
         this.age = age;
+        this.role = role;
         this.money = money;
         this.listBidUser = listBidUser;
         this.listUserInRoom = listUserInRoom;
@@ -126,6 +127,14 @@ public class User implements Serializable {
         this.age = age;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public int getMoney() {
         return money;
     }
@@ -157,5 +166,7 @@ public class User implements Serializable {
     public void setListAuctionCreated(List<Auction> listAuctionCreated) {
         this.listAuctionCreated = listAuctionCreated;
     }
+
+  
    
 }

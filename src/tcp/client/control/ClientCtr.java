@@ -18,8 +18,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import javax.swing.text.html.HTML;
 import tcp.client.view.ClientMainFrm;
-import tcp.client.view.HomePage;
-import tcp.client.view.ListFriendsFrm;
+import tcp.client.view.HomePageClient;
+import tcp.client.view.ListAuctionsFrm;
 import tcp.client.view.LoginFrm;
 
 public class ClientCtr {
@@ -116,7 +116,10 @@ public class ClientCtr {
                                             LoginFrm loginView = (LoginFrm) fto.getData();
                                             loginView.receivedDataProcessing(data);
                                             break;
-
+                                        case ObjectWrapper.REPLY_GET_AUCTIONS:
+                                            ListAuctionsFrm listAuctionView = (ListAuctionsFrm) fto.getData();
+                                            listAuctionView.receivedDataProcessing(data);
+                                            break;
                                     }
 
                                 }

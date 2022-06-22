@@ -49,7 +49,7 @@ public class Auction implements Serializable{
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "auctionUser")
     private List<UserInRoom> listUserInRoom;
     @ManyToOne
-    @JoinColumn(name = "idUser",nullable = false)
+    @JoinColumn(name = "idUserCreate",nullable = false)
     private User userCreatAuction;
 
     public Auction() {
@@ -130,7 +130,11 @@ public class Auction implements Serializable{
         this.userCreatAuction = userCreatAuction;
     }
 
-   
+       public Object[] toObject(){
+        return new Object[]{
+            this.id,this.item.getName()
+        };
+    }
 
    
     

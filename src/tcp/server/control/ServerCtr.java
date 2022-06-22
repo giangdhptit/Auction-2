@@ -10,11 +10,11 @@ package tcp.server.control;
  * @author bakhoat
  */
 //package tcp.server.control;
- 
 //import DAO.CustomerDAO;
 //import DAO.UserDAO;
 //import Model.Customer;
 import DAO.AuctionDAO;
+import Model.Auction;
 import Model.IPAddress;
 import Model.ObjectWrapper;
 import Model.User;
@@ -148,19 +148,25 @@ public class ServerCtr {
                 while (true) {
                     ObjectInputStream ois = new ObjectInputStream(mySocket.getInputStream());
                     ObjectOutputStream oos = new ObjectOutputStream(mySocket.getOutputStream());
+                    AuctionDAO ADao = new AuctionDAO();
                     Object o = ois.readObject();
                     if (o instanceof ObjectWrapper) {
                         ObjectWrapper data = (ObjectWrapper) o;
                         switch (data.getPerformative()) {
                             case ObjectWrapper.LOGIN_USER:
                                 User user = (User) data.getData();
-                                AuctionDAO aDao = new AuctionDAO();
-                                boolean checklogin = aDao.checkLogin(user);
+                                boolean checklogin = ADao.checkLogin(user);
                                 if (!checklogin) {
-                                        oos.writeObject(new ObjectWrapper(ObjectWrapper.REPLY_LOGIN_USER, "false"));
-                                    } else {              
-                                        oos.writeObject(new ObjectWrapper(ObjectWrapper.REPLY_LOGIN_USER, user));
-                                    }
+                                    oos.writeObject(new ObjectWrapper(ObjectWrapper.REPLY_LOGIN_USER, "false"));
+                                } else {
+                                    hm.put(user.getId(), mySocket);
+                                    mh.put(mySocket, user.getId());
+                                    oos.writeObject(new ObjectWrapper(ObjectWrapper.REPLY_LOGIN_USER, user));
+                                }
+                                break;
+                            case ObjectWrapper.GET_AUCTIONS:
+                                ArrayList<Auction> listauction = ADao.getAllAuctions();
+                                oos.writeObject(new ObjectWrapper(ObjectWrapper.REPLY_GET_AUCTIONS, listauction));
                                 break;
 
                         }
@@ -168,7 +174,7 @@ public class ServerCtr {
                     }
                 }
             } catch (EOFException | SocketException e) {
-                //e.printStackTrace();
+                e.printStackTrace();
                 myProcess.remove(this);
                 hm.remove(mh.get(this.mySocket));
                 mh.remove(this.mySocket);

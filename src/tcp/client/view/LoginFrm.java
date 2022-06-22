@@ -15,8 +15,9 @@ import tcp.client.control.ClientCtr;
  * @author bakhoat
  */
 public class LoginFrm extends javax.swing.JFrame {
+
     private ClientCtr mySocket;
-    
+
     /**
      * Creates new form LoginFrm
      */
@@ -104,12 +105,12 @@ public class LoginFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            User user = new User();
-            user.setUsername(jTextField1.getText());
-            user.setPassword(jPasswordField1.getText());
-            mySocket.sendData(new ObjectWrapper(ObjectWrapper.LOGIN_USER, user));
-            
-            
+        User user = new User();
+        user.setUsername(jTextField1.getText());
+        user.setPassword(jPasswordField1.getText());
+        mySocket.sendData(new ObjectWrapper(ObjectWrapper.LOGIN_USER, user));
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -146,16 +147,22 @@ public class LoginFrm extends javax.swing.JFrame {
 //            }
 //        });
 //    }
-
     public void receivedDataProcessing(ObjectWrapper data) {
-      if(data.getData().equals("false")) {
+        if (data.getData().equals("false")) {
             JOptionPane.showMessageDialog(this, "Error when Login!");
-            
-        }
-        else {
-            HomePage hp = new HomePage(data.getData().hashCode(),mySocket);
-            hp.setVisible(true);
-            this.dispose();
+
+        } else {
+            User user = (User) data.getData();
+            if (user.getRole().equals("admin")) {
+                HomePageAdminFrm hpA = new HomePageAdminFrm(user, mySocket);
+                hpA.setVisible(true);
+                this.dispose();
+            } else {
+                HomePageClient hp = new HomePageClient(user, mySocket);
+                hp.setVisible(true);
+                this.dispose();
+            }
+
         }
     }
 
