@@ -21,6 +21,7 @@ import tcp.client.view.ClientMainFrm;
 import tcp.client.view.HomePageClient;
 import tcp.client.view.ListAuctionsFrm;
 import tcp.client.view.LoginFrm;
+import tcp.client.view.RegisterFrm;
 
 public class ClientCtr {
 
@@ -119,6 +120,10 @@ public class ClientCtr {
                                         case ObjectWrapper.REPLY_GET_AUCTIONS:
                                             ListAuctionsFrm listAuctionView = (ListAuctionsFrm) fto.getData();
                                             listAuctionView.receivedDataProcessing(data);
+                                            break;
+                                        case ObjectWrapper.REPLY_REGISTER_USER:
+                                            RegisterFrm registerFrm = (RegisterFrm) fto.getData();
+                                            registerFrm.receivedDataProcessing(data);
                                             break;
                                     }
 

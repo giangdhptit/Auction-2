@@ -37,5 +37,21 @@ public class AuctionDAO extends DAO {
         System.out.println(list.size());
         return list;
     }
+    public boolean Register(User user) {
+         ArrayList<User> listp = (ArrayList<User>) session.createQuery("from User ").list();
+        for (User u : listp) {
+            if (u.getUsername().equals(user.getUsername())) {
+                return false;
+            }
+        }
+        Transaction trans = session.getTransaction();
+        if (!trans.isActive()) {
+            trans.begin();
+        }
+        session.save(user);
+        trans.commit();
+        return true;
+
+    }
 
 }

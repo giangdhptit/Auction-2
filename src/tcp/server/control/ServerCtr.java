@@ -168,6 +168,11 @@ public class ServerCtr {
                                 ArrayList<Auction> listauction = ADao.getAllAuctions();
                                 oos.writeObject(new ObjectWrapper(ObjectWrapper.REPLY_GET_AUCTIONS, listauction));
                                 break;
+                            case ObjectWrapper.REGISTER_USER:
+                                User Registeruser = (User) data.getData();
+                                boolean registerCheck = ADao.Register(Registeruser);
+                                oos.writeObject(new ObjectWrapper(ObjectWrapper.REPLY_REGISTER_USER, registerCheck));
+                                break;
 
                         }
 

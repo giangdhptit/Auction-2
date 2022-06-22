@@ -180,7 +180,8 @@ public class ClientMainFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_LoginMenuActionPerformed
 
     private void registerMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerMenuActionPerformed
-        // TODO add your handling code here:
+                RegisterFrm registerfrm = new RegisterFrm(myControl);
+                registerfrm.setVisible(true);
     }//GEN-LAST:event_registerMenuActionPerformed
 
     /**
