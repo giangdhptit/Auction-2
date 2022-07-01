@@ -1,13 +1,15 @@
 package com.example.dm.demo_2.model;
 
-public class ResponseObject {
+import javax.persistence.Entity;
+
+public class ResObject {
     private String status;
     private String message;
     private Object data;
 
-    public ResponseObject(){}
+    public ResObject(){}
 
-    public ResponseObject(String status, String message, Object data) {
+    public ResObject(String status, String message, Object data) {
         this.status = status;
         this.message = message;
         this.data = data;
