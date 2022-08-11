@@ -1,82 +1,63 @@
 package com.example.dm.demo_2.service;
 
-import com.example.dm.demo_2.model.Auction;
+import com.example.dm.demo_2.model.Bid;
 import com.example.dm.demo_2.model.ResObject;
-import com.example.dm.demo_2.repository.AuctionRepository;
+import com.example.dm.demo_2.repository.BidRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AuctionServiceImpl implements AuctionService{
+public class BidServiceImpl implements BidService{
 
     @Autowired
-    AuctionRepository AuctionRepository;
+    BidRepository BidRepository;
 
     @Override
-    public List<Auction> getAllAuctions() {
-        List<Auction> AuctionList = AuctionRepository.findAll();
-        return AuctionList;
+    public List<Bid> getAllBids() {
+        List<Bid> BidList = BidRepository.findAll();
+        return BidList;
     }
 
     @Override
-    public ResponseEntity<ResObject> getAuction(int Auction_id) {
-        Optional<Auction> foundAuction = AuctionRepository.findById(Auction_id);
-        if (foundAuction.isPresent()){
+    public ResponseEntity<ResObject> getBid(int Bid_id) {
+        Optional<Bid> foundBid = BidRepository.findById(Bid_id);
+        if (foundBid.isPresent()){
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResObject("ok","succeeded",foundAuction)
+                    new ResObject("ok","succeeded",foundBid)
             );
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    new ResObject("false","Cannot find "+Auction_id,"")
+                    new ResObject("false","Cannot find "+Bid_id,"")
             );
         }
     }
 
     @Override
-    public ResponseEntity<ResObject> addAuction(Auction Auction) {
+    public ResponseEntity<ResObject> addBid(Bid Bid) {
         return ResponseEntity.status(HttpStatus.OK).body(
-                new ResObject("ok","succeeded",AuctionRepository.save(Auction))
+                new ResObject("ok","succeeded",BidRepository.save(Bid))
         );
     }
 
 
     @Override
-    public ResponseEntity<ResObject> updateAuction(int Auction_id,Auction Auction) {
-        Optional<Auction> foundAuction = AuctionRepository.findById(Auction_id);
-        if (foundAuction!=null){
+    public ResponseEntity<ResObject> updateBid(int Bid_id,Bid Bid) {
+        Optional<Bid> foundBid = BidRepository.findById(Bid_id);
+        if (foundBid!=null){
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResObject("ok","succeeded",AuctionRepository.save(Auction))
+                    new ResObject("ok","succeeded",BidRepository.save(Bid))
             );
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    new ResObject("false","Cannot find "+Auction_id,"")
+                    new ResObject("false","Cannot find "+Bid_id,"")
             );
         }
     }
 
-    @Override
-    public ResponseEntity<ResObject> deleteAuction(int Auction_id) {
-        Auction foundAuction = AuctionRepository.findById(Auction_id).map(Auction -> {
-            Auction.setDeleted(true);
-            return Auction;
-        }).orElseGet(()->{
-            return null;
-        });
-        if (foundAuction!=null){
-            return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResObject("ok","succeeded",AuctionRepository.save(foundAuction))
-            );
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    new ResObject("false","Cannot find "+Auction_id,"")
-            );
-        }
-    }
+
 }

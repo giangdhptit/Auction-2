@@ -1,46 +1,38 @@
 package com.example.dm.demo_2.controller;
 
-import com.example.dm.demo_2.model.Auction;
+import com.example.dm.demo_2.model.Bid;
 import com.example.dm.demo_2.model.ResObject;
-import com.example.dm.demo_2.repository.AuctionRepository;
-import com.example.dm.demo_2.service.AuctionServiceImpl;
+import com.example.dm.demo_2.service.BidServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "/Auctions")
-public class AuctionController {
+@RequestMapping(path = "/Bids")
+public class BidController {
     @Autowired
-    private AuctionServiceImpl AuctionServiceImpl;
+    private BidServiceImpl BidServiceImpl;
 
     @GetMapping("")
-    List<Auction> getAllAuctions(){
-        return AuctionServiceImpl.getAllAuctions();
+    List<Bid> getAllBids(){
+        return BidServiceImpl.getAllBids();
     }
 
-    @GetMapping("/{Auction_id}")
-    ResponseEntity<ResObject> getAuction(int Auction_id){
-        return AuctionServiceImpl.getAuction(Auction_id);
+    @GetMapping("/{Bid_id}")
+    ResponseEntity<ResObject> getBid(int Bid_id){
+        return BidServiceImpl.getBid(Bid_id);
     }
 
     @PostMapping("/add")
-    ResponseEntity<ResObject> addAuction(Auction newAuction){
-        return AuctionServiceImpl.addAuction(newAuction);
+    ResponseEntity<ResObject> addBid(Bid newBid){
+        return BidServiceImpl.addBid(newBid);
     }
 
-    @PutMapping("/{Auction_id}/update")
-    ResponseEntity<ResObject> updateAuction(@RequestParam int Auction_id, @RequestBody Auction Auction){
-        return AuctionServiceImpl.updateAuction(Auction_id,Auction);
+    @PutMapping("/{Bid_id}/update")
+    ResponseEntity<ResObject> updateBid(@RequestParam int Bid_id, @RequestBody Bid Bid){
+        return BidServiceImpl.updateBid(Bid_id,Bid);
     }
 
-    @DeleteMapping("/{Auction_id}/delete")
-    ResponseEntity<ResObject> deleteAuction(int Auction_id){
-        return  AuctionServiceImpl.deleteAuction(Auction_id);
-    }
 }

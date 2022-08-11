@@ -39,6 +39,10 @@ public class Auction implements Serializable {
     @Column(name = "modify_at")
     private String modify_at;
 
+    @Column(name = "deleted")
+    private int deleted;
+
+
     @OneToOne
     @JoinColumn(name = "item_id", nullable = false)
     private Item item;
@@ -50,10 +54,20 @@ public class Auction implements Serializable {
     @JoinColumn(name = "host_id", nullable = false)
     private User host;
 
+
+
     public Auction() {
     }
 
-    public Auction(int id, String start_at, String end_at, int initPrice, int currentPrice, int status, String create_at, String modify_at, Item item, List<Bid> listBid, User host) {
+    public int getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(int deleted) {
+        this.deleted = deleted;
+    }
+
+    public Auction(int id, String start_at, String end_at, int initPrice, int currentPrice, int status, String create_at, String modify_at, Item item, List<Bid> listBid, User host, int deleted) {
         this.id = id;
         this.start_at = start_at;
         this.end_at = end_at;
@@ -65,6 +79,7 @@ public class Auction implements Serializable {
         this.item = item;
         this.listBid = listBid;
         this.host = host;
+        this.deleted = deleted;
     }
 
     public int getCurrentPrice() {

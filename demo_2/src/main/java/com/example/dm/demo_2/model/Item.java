@@ -23,6 +23,8 @@ public class Item implements Serializable {
     @Column(name = "stock")
     private int stock;
 
+    @Column(name = "deleted")
+    private int deleted;
 
 
     public String getCreate_at() {
@@ -37,6 +39,14 @@ public class Item implements Serializable {
         return modify_at;
     }
 
+    public int getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(int deleted) {
+        this.deleted = deleted;
+    }
+
     public void setModify_at(String modify_at) {
         this.modify_at = modify_at;
     }
@@ -44,12 +54,13 @@ public class Item implements Serializable {
     public Item() {
     }
 
-    public Item(int id, String name, String create_at, String modify_at, int stock) {
+    public Item(int id, String name, String create_at, String modify_at, int stock, int deleted) {
         this.id = id;
         this.name = name;
         this.create_at = create_at;
         this.modify_at = modify_at;
         this.stock = stock;
+        this.deleted =deleted;
     }
 
     public int getId() {
