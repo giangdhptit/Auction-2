@@ -3,6 +3,7 @@ package com.example.dm.demo_2.controller;
 import com.example.dm.demo_2.model.Auction;
 import com.example.dm.demo_2.model.ResObject;
 import com.example.dm.demo_2.repository.AuctionRepository;
+import com.example.dm.demo_2.request.SaveAuctionRequest;
 import com.example.dm.demo_2.service.AuctionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+
 
 @CrossOrigin
 @RestController
@@ -26,18 +28,18 @@ public class AuctionController {
     }
 
     @GetMapping("/{Auction_id}")
-    ResponseEntity<ResObject> getAuction(int Auction_id){
+    ResponseEntity<ResObject> getAuction(@PathVariable int Auction_id){
         return AuctionServiceImpl.getAuction(Auction_id);
     }
 
     @PostMapping("/add")
-    ResponseEntity<ResObject> addAuction(Auction newAuction){
+    ResponseEntity<ResObject> addAuction(@RequestBody Auction newAuction){
         return AuctionServiceImpl.addAuction(newAuction);
     }
 
     @PutMapping("/{Auction_id}/update")
-    ResponseEntity<ResObject> updateAuction(@RequestParam int Auction_id, @RequestBody Auction Auction){
-        return AuctionServiceImpl.updateAuction(Auction_id,Auction);
+    ResponseEntity<ResObject> updateAuction(@PathVariable int Auction_id, @RequestBody SaveAuctionRequest req){
+        return AuctionServiceImpl.updateAuction(Auction_id,req);
     }
 
     @DeleteMapping("/{Auction_id}/delete")

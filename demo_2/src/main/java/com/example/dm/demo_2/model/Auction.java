@@ -1,7 +1,10 @@
 package com.example.dm.demo_2.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.JoinColumn;
@@ -47,10 +50,13 @@ public class Auction implements Serializable {
     @JoinColumn(name = "item_id", nullable = false)
     private Item item;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "auction")
-    private List<Bid> listBid;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "auctionBid")
+    @JsonIgnore
+    private List<Bid> listBid = new ArrayList<>();
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "host_id", nullable = false)
     private User host;
 

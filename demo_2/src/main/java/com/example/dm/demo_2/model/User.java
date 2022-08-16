@@ -1,10 +1,12 @@
 package com.example.dm.demo_2.model;
 import com.example.dm.demo_2.model.Auction;
 import com.example.dm.demo_2.model.Bid;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "User")
@@ -45,10 +47,14 @@ public class User implements Serializable {
     @Column(name = "modify_at")
     private String modify_at;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userBid")
+    @JsonIgnore
     private List<Bid> listBidUser;
     //@OneToMany(fetch = FetchType.LAZY, mappedBy = "auction")
     //private List<Auction> listAuctionCreated;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "host", cascade= CascadeType.ALL)
+    @JsonIgnore
+    private  List<Auction> listHost=new ArrayList<>();
 
     public User() {
     }

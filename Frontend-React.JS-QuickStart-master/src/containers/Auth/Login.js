@@ -59,7 +59,8 @@ class Login extends Component {
 
                 console.log(responseJson);
                 if (responseJson.status=='ok'){
-                    this.props.userLoginSuccess(responseJson.data)
+                    this.props.userLoginSuccess(responseJson.data);
+                    localStorage.setItem("user", JSON.stringify(responseJson.data));
                 }
                 return responseJson.user;
                 });
